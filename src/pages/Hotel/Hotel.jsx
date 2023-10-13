@@ -9,13 +9,36 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import MailList from '../../components/mailList/MailList';
 import Footer from '../../components/Footer/Footer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
+import { SearchContext } from '../../context/SearchContext';
+import { AuthContext } from '../../context/AuthContext';
+import Reserve from '../../components/reserve/Reserve';
 
 const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
+  const location = useLocation();
+
+  const { data, loading, error, reFetch } = useFetch(
+    `/hotels/find/${location.pathname.split('/')[2]}`
+  );
+
+  const { dates, options } = useContext(SearchContext);
+
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+
+  function dayDiff(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
+
+  const days = dayDiff(dates[0].endDate, dates[0].startDate);
   const photos = [
     {
       src: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/415671437.jpg?k=eaa862cad5deb36d586c09a31ce63f51b8e5edbdf2c6a750fcfa16cb1a7bf12b&o=&hp=1',
@@ -50,98 +73,109 @@ const Hotel = () => {
     }
     setSlideNumber(newSliderNumber);
   };
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate('/login');
+    }
+  };
   return (
     <div>
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
-        {open && (
-          <div className="slider">
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              onClick={() => {
-                setOpen(false);
-              }}
-              className="close"
-            />
-            <FontAwesomeIcon
-              icon={faCircleArrowLeft}
-              className="arrow"
-              onClick={() => handleMove('l')}
-            />
-            <div className="sliderWrapper">
-              <img src={photos[slideNumber].src} alt="" className="sliderImg" />
-            </div>
-            <FontAwesomeIcon
-              icon={faCircleArrowRight}
-              className="arrow"
-              onClick={() => handleMove('r')}
-            />
-          </div>
-        )}
-        <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
-          <div className="hotelTitle">CASA HOTEL PATTAYA</div>
-          <div className="hotelAddress">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <span>
-              140/90 MOO11 NONGPRUE BANGLAMUNG, 20150 Nong Prue, Thailand –
-            </span>
-          </div>
-          <span className="hotelDistance">
-            Excellent location - 500m from center
-          </span>
-          <span className="hotelPriceHighlight">
-            Book a stay over $114 at this property and get a free airport taxi
-          </span>
-          <div className="hotelImages">
-            {photos.map((photo, i) => (
-              <div className="hotelImgWrapper">
+      {loading ? (
+        'Loading...'
+      ) : (
+        <div className="hotelContainer">
+          {open && (
+            <div className="slider">
+              <FontAwesomeIcon
+                icon={faCircleXmark}
+                onClick={() => {
+                  setOpen(false);
+                }}
+                className="close"
+              />
+              <FontAwesomeIcon
+                icon={faCircleArrowLeft}
+                className="arrow"
+                onClick={() => handleMove('l')}
+              />
+              <div className="sliderWrapper">
                 <img
-                  src={photo.src}
+                  src={data.photos[slideNumber].src}
                   alt=""
-                  className="hotelImg"
-                  onClick={() => handleOpen(i)}
+                  className="sliderImg"
                 />
               </div>
-            ))}
-          </div>
-          <div className="hotelDetails">
-            <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in heart of Pattaya</h1>
-              <p className="hotelDesc">
-                M CASA HOTEL PATTAYA is located in Nong Prue Subdistrict. 700
-                meters from Pattaya Beach, it offers accommodations with an
-                outdoor swimming pool. Free private parking, a terrace and a
-                restaurant. This 4-star hotel offers room service. There is a
-                24-hour front desk and free WiFi. The property is non-smoking.
-                It is 2.3 km from Cozy Beach. Every room at the hotel has a
-                balcony with mountain views. At M CASA HOTEL PATTAYA, rooms have
-                a private bathroom with a shower and free toiletries. It also
-                has city views. Rooms at the property are air conditioned. and
-                flat-screen television. Guests at M CASA HOTEL PATTAYA can enjoy
-                a buffet or à la carte breakfast. Paradise Beach is 2.4 km from
-                the hotel, while Bang Phra International Golf Course is 42 km
-                from the property. The nearest airport is Utapao Rayong-Pattaya
-                International Airport, 45 km from M CASA HOTEL PATTAYA.
-              </p>
+              <FontAwesomeIcon
+                icon={faCircleArrowRight}
+                className="arrow"
+                onClick={() => handleMove('r')}
+              />
             </div>
-            <div className="hotelDetailsPrice">
-              <h1>Highlights of the accommodation</h1>
-              <span>
-                Located in the best-rated area in Nong Prue, this hotel has an
-                excellent location score of 8.6
-              </span>
-              <h2>
-                <b>$923</b> (9 nights)
-              </h2>
-              <button>Reserve or Book Now!</button>
+          )}
+          <div className="hotelWrapper">
+            <button className="bookNow" onClick={handleClick}>
+              Reserve or Book Now!
+            </button>
+            <div className="hotelTitle">{data.name}</div>
+            <div className="hotelAddress">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <span>{data.address}</span>
+            </div>
+            <span className="hotelDistance">
+              Excellent location - {data.distance}m from center
+            </span>
+            <span className="hotelPriceHighlight">
+              Book a stay over ${data.cheapestPrice} at this property and get a
+              free airport taxi
+            </span>
+            <div className="hotelImages">
+              {data.photos?.map((photo, i) => (
+                <div className="hotelImgWrapper" key={i}>
+                  <img
+                    src={photo}
+                    alt=""
+                    className="hotelImg"
+                    onClick={() => handleOpen(i)}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <h1 className="hotelTitle">{data.title}</h1>
+                <p className="hotelDesc">{data.desc}</p>
+              </div>
+              <div className="hotelDetailsPrice">
+                <h1>Highlights of the accommodation</h1>
+                <span>
+                  Located in the best-rated area in Nong Prue, this hotel has an
+                  excellent location score of 8.6
+                </span>
+                <h2>
+                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{' '}
+                  nights)
+                </h2>
+                <button onClick={handleClick}>Reserve or Book Now!</button>
+              </div>
             </div>
           </div>
+          <MailList />
+          <Footer />
         </div>
-        <MailList />
-        <Footer />
-      </div>
+      )}
+      {openModal && (
+        <Reserve
+          setOpen={setOpenModal}
+          hotelId={location.pathname.split('/')[2]}
+        />
+      )}
     </div>
   );
 };

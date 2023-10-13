@@ -1,12 +1,13 @@
 .footer {
-  width: 100%;
-  width: 1024px;
+  width: 90vw;
+  max-width: 1024px;
   font-size: 12px;
 }
 
 .fLists {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 50px;
 }
@@ -24,4 +25,47 @@
 
 .fText {
   margin-bottom: 20px;
+}
+
+/* Small devices such as large phones (640px and up) */
+@media only screen and (min-width: 40em) {
+}
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (min-width: 48em) {
+}
+
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (min-width: 64em) {
+}
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 80em) {
+  .footer {
+    width: 100%;
+    width: 1024px;
+    font-size: 12px;
+  }
+
+  .fLists {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+
+  .fList {
+    list-style: none;
+    padding: 0;
+  }
+
+  .fListItem {
+    margin-bottom: 10px;
+    color: #04364a;
+    cursor: pointer;
+  }
+
+  .fText {
+    margin-bottom: 20px;
+  }
 }

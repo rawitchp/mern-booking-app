@@ -8,6 +8,7 @@
 .navContainer {
   width: 100%;
   max-width: 1024px;
+  padding: 10px;
   color: white;
   display: flex;
   align-items: center;
@@ -24,4 +25,52 @@
   padding: 5px 10px;
   cursor: pointer;
   color: '#0404364';
+  border-radius: 5px;
+}
+
+/* Small devices such as large phones (640px and up) */
+@media only screen and (min-width: 40em) {
+  .navContainer {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (min-width: 48em) {
+}
+
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (min-width: 64em) {
+}
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 80em) {
+  .navbar {
+    height: 50px;
+    background: #04364a;
+    display: flex;
+    justify-content: center;
+  }
+
+  .navContainer {
+    width: 100%;
+    max-width: 1024px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-weight: 500;
+  }
+
+  .navButton {
+    margin-left: 20px;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: '#0404364';
+  }
 }

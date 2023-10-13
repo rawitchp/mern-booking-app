@@ -1,13 +1,15 @@
 .listContainer {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 20px;
 }
 
 .listWrapper {
-  width: 100%;
+  width: 90%;
   max-width: 1024px;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -16,7 +18,6 @@
   background-color: #64ccc5;
   padding: 10px;
   border-radius: 10px;
-  position: sticky;
   top: 10px;
   height: max-content;
 }
@@ -82,4 +83,105 @@
 
 .listResult {
   flex: 3;
+}
+
+/* Small devices such as large phones (640px and up) */
+@media only screen and (min-width: 40em) {
+}
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (min-width: 48em) {
+}
+
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (min-width: 64em) {
+}
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 80em) {
+  .listContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .listWrapper {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    gap: 20px;
+  }
+
+  .listSearch {
+    flex: 1;
+    background-color: #64ccc5;
+    padding: 10px;
+    border-radius: 10px;
+    position: sticky;
+    top: 10px;
+    height: max-content;
+  }
+  .lsTitle {
+    font-size: 20px;
+    color: #04364a;
+    margin-bottom: 10px;
+  }
+
+  .lsItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .lsItem > label {
+    font-size: 12px;
+  }
+
+  .lsItem > input {
+    height: 30px;
+    border: none;
+    padding: 5px;
+    outline: none;
+  }
+
+  .lsItem > span {
+    height: 30px;
+    background-color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .lsOptions {
+    padding: 10px;
+  }
+
+  .lsOptionItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 12px;
+  }
+
+  .lsOptionInput {
+    width: 50px;
+  }
+
+  .listSearch > button {
+    padding: 10px;
+    background-color: #04364a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+  }
+
+  .listResult {
+    flex: 3;
+  }
 }

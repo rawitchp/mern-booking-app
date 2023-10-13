@@ -1,13 +1,15 @@
 .fp {
-  width: 100%;
+  width: 90vw;
   max-width: 1024px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
 .fpItem {
-  flex: 1;
+  width: 90vw;
+  max-width: 400px;
   gap: 10px;
   display: flex;
   flex-direction: column;
@@ -40,4 +42,63 @@
 
 .fpRating > span {
   font-size: 14px;
+}
+
+/* Small devices such as large phones (640px and up) */
+@media only screen and (min-width: 40em) {
+}
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (min-width: 48em) {
+}
+
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (min-width: 64em) {
+}
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 80em) {
+  .fp {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .fpItem {
+    flex: 1;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fpImg {
+    width: 100%;
+  }
+
+  .fpName {
+    font-weight: bold;
+  }
+
+  .fpCity {
+    font-weight: 300;
+  }
+
+  .fpPrice {
+    font-weight: 500;
+  }
+
+  .fpRating > button {
+    background-color: #04364a;
+    color: white;
+    border: none;
+    padding: 3px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .fpRating > span {
+    font-size: 14px;
+  }
 }

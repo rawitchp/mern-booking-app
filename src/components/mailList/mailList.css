@@ -1,16 +1,18 @@
 .mail {
-  width: 100%;
+  width: 100vw;
   margin-top: 50px;
   background-color: #04364a;
   color: white;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   padding: 50px 0px;
 }
 
 .mailInputContainer > input {
-  width: 300px;
+  width: 50vw;
+  max-width: 300px;
   height: 30px;
   padding: 10px;
   border: none;
@@ -27,4 +29,60 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.mailTitle,
+.mailDesc,
+.mailInputContainer {
+  width: 90vw;
+}
+/* Small devices such as large phones (640px and up) */
+@media only screen and (min-width: 40em) {
+  .mailTitle,
+  .mailDesc,
+  .mailInputContainer {
+    width: auto;
+  }
+}
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (min-width: 48em) {
+}
+
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (min-width: 64em) {
+}
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 80em) {
+  .mail {
+    width: 100%;
+    margin-top: 50px;
+    background-color: #04364a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0px;
+  }
+
+  .mailInputContainer > input {
+    width: 300px;
+    height: 30px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin-top: 20px;
+    margin-right: 10px;
+  }
+
+  .mailInputContainer > button {
+    height: 50px;
+    background-color: #176b87;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }
