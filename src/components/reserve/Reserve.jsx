@@ -50,7 +50,7 @@ const Reserve = ({ setOpen, hotelId }) => {
     try {
       await Promise.all(
         selectedRoom.map((roomId) => {
-          const res = axios.put(`/rooms/availability/${roomId}`, {
+          const res = axios.put(`https://long-tan-greyhound-cape.cyclic.app/api/rooms/availability/${roomId}`, {
             dates: allDates,
           });
           return res.data;

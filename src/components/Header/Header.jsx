@@ -20,10 +20,15 @@ import { AuthContext } from '../../context/AuthContext';
 const Header = ({ type }) => {
   const [destination, setDestination] = useState('');
   const [openDate, setOpenDate] = useState(false);
+
+  const currentDate = new Date();
+  const nextDate = new Date(currentDate);
+  nextDate.setDate(currentDate.getDate() + 1);
+
   const [dates, setDates] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: nextDate,
       key: 'selection',
     },
   ]);

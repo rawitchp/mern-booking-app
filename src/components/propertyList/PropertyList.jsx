@@ -70,7 +70,7 @@ const PropertyList = () => {
             <div className="pListTitles">
               <h1>{data[4]?.type}</h1>
               <h2>
-                {data[4]?.count} {data[4]?.type}s
+                {data[4]?.count} {data[4]?.type}
               </h2>
             </div>
           </div>

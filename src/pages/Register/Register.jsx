@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import './login.css';
+import './register.css';
 
-const Login = () => {
+const Register = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
@@ -22,24 +22,31 @@ const Login = () => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const res = await axios.post(
-        'https://long-tan-greyhound-cape.cyclic.app/api/auth/login',
+        'https://long-tan-greyhound-cape.cyclic.app/api/auth/register',
         credentials
       );
-      dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
+
       navigate('/');
     } catch (error) {
-      dispatch({ type: 'LOGIN_FAILURE', payload: error.response.data });
+      alert(error);
     }
   };
 
   return (
     <div className="login">
       <div className="lContainer">
-        <h1>Login</h1>
+        <h1>Register</h1>
         <input
           type="text"
           placeholder="username"
           id="username"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          id="email"
           onChange={handleChange}
           className="lInput"
         />
@@ -50,8 +57,29 @@ const Login = () => {
           onChange={handleChange}
           className="lInput"
         />
+        <input
+          type="phone"
+          placeholder="phone"
+          id="phone"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="country"
+          placeholder="country"
+          id="country"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="city"
+          placeholder="city"
+          id="city"
+          onChange={handleChange}
+          className="lInput"
+        />
         <button disabled={loading} onClick={handleClick} className="lButton">
-          Login
+          Register
         </button>
         {error && <span>{error.message}</span>}
       </div>
@@ -59,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

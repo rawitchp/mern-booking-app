@@ -9,8 +9,11 @@ export const useFetch = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      console.log('https://long-tan-greyhound-cape.cyclic.app/api' + url);
       try {
-        const res = await axios.get(url);
+        const res = await axios.get(
+          'https://long-tan-greyhound-cape.cyclic.app/api' + url
+        );
         console.log(res);
         setData(res.data);
       } catch (error) {
@@ -22,8 +25,11 @@ export const useFetch = (url) => {
   }, [url]);
   const reFetch = async () => {
     setLoading(true);
+
     try {
-      const res = await axios.get(url);
+      const res = await axios.get(
+        'https://long-tan-greyhound-cape.cyclic.app/api' + url
+      );
       setData(res.data);
     } catch (error) {
       setError(error);
