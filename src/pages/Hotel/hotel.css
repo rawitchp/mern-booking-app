@@ -162,6 +162,13 @@
 
 /* Medium devices such as tablets (768px and up) */
 @media only screen and (min-width: 48em) {
+  .hotelDetails {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+    flex-direction: row;
+  }
 }
 
 /* Large devices such as laptops (1024px and up) */
@@ -242,6 +249,7 @@
     justify-content: space-between;
     gap: 20px;
     margin-top: 20px;
+    flex-direction: row;
   }
 
   .hotelDetailsTexts {
